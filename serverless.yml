@@ -1,0 +1,25 @@
+service: apollo-lambda
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+plugins:
+  - serverless-plugin-typescript 
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+useDotenv: true
+functions:
+  graphql:
+    # this is formatted as <FILENAME>.<HANDLER>
+    handler: src/serverless.graphqlHandler
+    events:
+    - http:
+        path: /graphql
+        method: post
+        cors: true
+    - http:
+        path: /graphql
+        method: get
+        cors: true
